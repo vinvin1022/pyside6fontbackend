@@ -1,0 +1,14 @@
+# 忽略 JetBrains 系列 IDE 的配置文件夹（如 WebStorm、PyCharm、IntelliJ IDEA 等）
+.idea/
+
+# 忽略构建输出目录
+dist/
+
+build/
+
+*.pyc
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
