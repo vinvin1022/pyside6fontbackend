@@ -13,7 +13,7 @@ from PySide6.QtWebChannel import QWebChannel
 from bridge import Bridge
 import requests
 from backend.server import kill_gunicorn, run_flask, start_gunicorn
-from PySide6.QtWidgets import QSplashScreen
+# from PySide6.QtWidgets import QSplashScreen
 
 
 def get_dist_path(filename: str) -> str:
