@@ -5,5 +5,6 @@ PySide6==6.9.0
 gunicorn==23.0.0
 gevent==25.5.1
 waitress==3.0.2
+requests==2.32.4
 
 

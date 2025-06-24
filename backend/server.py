@@ -33,4 +33,11 @@ def kill_gunicorn(proc: subprocess.Popen):
 
 
 def run_flask():
-    serve(app, host='0.0.0.0', port=5000)
+    try:
+        serve(app, host='0.0.0.0', port=5000)
+    except Exception as e:
+        print("Flask server crashed:", e)
+
+
+if __name__ == "__main__":
+    run_flask()

@@ -4,7 +4,7 @@ from random import random
 from flask import Flask, jsonify, send_from_directory
 # from flask_cors import CORS
 
-app = Flask(__name__, static_folder="dist")
+app = Flask(__name__, static_folder="web")
 # CORS(app)  # 允许跨域
 
 
@@ -24,7 +24,7 @@ def xunhuan():
 
 @app.route("/api/hello")
 def hello():
-    threading.Thread(target=xunhuan, daemon=True).start()
+    # threading.Thread(target=xunhuan, daemon=True).start()
     return jsonify({"message": "Hello from Flask!", "list": [
         {"id": 0, "name": 'Umi', "nickName": 'U', "gender": 'MALE'},
         {"id": 1, "name": 'Fish', "nickName": 'B', "gender": 'FEMALE'},

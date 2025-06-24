@@ -3,6 +3,7 @@ import sys
 import os
 import threading
 import time
+from random import randint
 
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QApplication, QMainWindow, QStatusBar, QMenuBar
@@ -38,8 +39,9 @@ def get_dist_path(filename: str) -> str:
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.timer = None
         self.setWindowTitle("PySide6 + React + Flask")
-        self.resize(1000, 700)
+        self.resize(1024, 768)
 
         self.status_bar = QStatusBar()
         self.setStatusBar(self.status_bar)
@@ -63,17 +65,6 @@ class MainWindow(QMainWindow):
         # 加载开发时的URL
         self.view.load(QUrl("http://localhost:5000"))
 
-        # 启动定时器，每隔 500ms 检测 Flask 是否启动
-        # self.timer = QTimer()
-        # self.timer.timeout.connect(self.check_server)
-        # self.timer.start(500)
-
-        # # 构建本地文件路径
-        # html_path = get_dist_path("web/index.html")
-        # print("html_path: ", html_path)
-        # local_url = QUrl.fromLocalFile(html_path)
-        # self.view.load(local_url)
-
     def check_server(self):
         try:
             requests.get("http://127.0.0.1:5000", timeout=0.3)
@@ -83,7 +74,8 @@ class MainWindow(QMainWindow):
             pass  # 继续等待
 
     def send_message_to_frontend(self):
-        self.view.page().runJavaScript("window.receiveFromPython('来自菜单的消息！')")
+        num = randint(0,99999)
+        self.view.page().runJavaScript("window.receiveFromPython(" + str(num) + ");")
 
     def update_status(self, text):
         self.status_bar.showMessage(text)
@@ -98,11 +90,18 @@ class MainWindow(QMainWindow):
 if __name__ == '__main__':
     # 启动 gunicorn
     # gunicorn_process = start_gunicorn()
+    # 启动 Flask 线程
     threading.Thread(target=run_flask, daemon=True).start()
 
-    # time.sleep(1)
+    # 启动 Qt 应用
     app = QApplication(sys.argv)
     window = MainWindow()
+
+    # 定时检测 Flask 是否启动完成
+    window.timer = QTimer()
+    window.timer.timeout.connect(window.check_server)
+    window.timer.start(200)  # 每 500ms 检查一次
+
     window.show()
     sys.exit(app.exec())
 
