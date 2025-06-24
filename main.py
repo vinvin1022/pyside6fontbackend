@@ -13,6 +13,7 @@ from PySide6.QtWebChannel import QWebChannel
 from bridge import Bridge
 import requests
 from backend.server import kill_gunicorn, run_flask, start_gunicorn
+from PySide6.QtWidgets import QSplashScreen
 
 
 def get_dist_path(filename: str) -> str:
@@ -95,12 +96,16 @@ if __name__ == '__main__':
 
     # 启动 Qt 应用
     app = QApplication(sys.argv)
+
+    # splash = QSplashScreen()
+    # splash.show()
+
     window = MainWindow()
 
     # 定时检测 Flask 是否启动完成
     window.timer = QTimer()
     window.timer.timeout.connect(window.check_server)
-    window.timer.start(200)  # 每 500ms 检查一次
+    window.timer.start(100)  # 每 500ms 检查一次
 
     window.show()
     sys.exit(app.exec())

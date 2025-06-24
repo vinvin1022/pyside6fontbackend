@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "author": "vinvin1022 <vin_i@foxmail.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@ant-design/pro-components": "^2.8.9",
+    "antd": "^5.26.1",
+    "axios": "^1.10.0",
+    "umi": "^4.4.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.33",
+    "@types/react-dom": "^18.0.11",
+    "@umijs/plugins": "^4.4.11",
+    "typescript": "^5.0.3"
+  }
+}
